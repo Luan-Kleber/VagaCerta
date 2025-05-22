@@ -13,6 +13,9 @@ if(isset($_POST['titulo'], $_POST['descricao'], $_POST['status'])) {
     $objVaga->status        = trim($_POST['status']);
 
     $objVaga->cadastrar();
+
+    header('location: index.php?msg=success');
+    exit;
 }
 
 include __DIR__ . "/includes/header.php";

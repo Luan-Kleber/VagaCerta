@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\DB\Database;
+use PDO;
 
 class Vaga {
 
@@ -44,21 +45,30 @@ class Vaga {
     public function cadastrar() {
 
         //Definir data
-        $this->data = ("Y-m-d H:i:s");
+        $this->data = date("Y-m-d H:i:s");
 
         //Inserir a vaga no banco
         $objDatabase = new Database("tbl_vagas");
 
-        $objDatabase->insert([
+        $this->id = $objDatabase->insert([
             "titulo"    => $this->titulo,
             "descricao" => $this->descricao,
             "status"    => $this->status,
             "data"      => $this->data
         ]);
 
-        //Atribuir O ID da vaga na instancia
-
         //Retornar Sucesso
+        return true;
+    }
 
+    /**
+     * Método responsável por obter as vagas dentro do banco de dados
+     * @param string $where
+     * @param string $order
+     * @param string $limit
+     * @return array
+     */
+    public static function getVagas($where = null, $order = null, $limit = null) {
+        return (new Database('tbl_vagas'))->select($where,$order,$limit)->fetchAll(PDO::FETCH_CLASS, self::class);
     }
 }

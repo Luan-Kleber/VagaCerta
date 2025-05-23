@@ -6,9 +6,9 @@ define('TITLE','Cadastrar Vaga');
 
 use \App\Entity\Vaga;
 
-if(isset($_POST['titulo'], $_POST['descricao'], $_POST['status'])) {
+$objVaga = new Vaga;
 
-    $objVaga = new Vaga;
+if(isset($_POST['titulo'], $_POST['descricao'], $_POST['status'])) {
 
     $objVaga->titulo        = trim($_POST['titulo']);
     $objVaga->descricao     = trim($_POST['descricao']);
